@@ -25,6 +25,7 @@ void dibuja(void)
         glPushMatrix();
             glRotatef(-(GLfloat)pantorrilla * 2, 0.0, 0.0, 1.0);
             
+            // pantorrilla
             glPushMatrix();
                 glTranslatef(0.0, -1, 0.0);
                 glScalef(0.6, 2, 0.5);
@@ -32,12 +33,14 @@ void dibuja(void)
                 glutSolidCube(1.0); // pantorrilla
             glPopMatrix();
 
+            // talon
             glPushMatrix();
                 glTranslatef(0.0, -2.3, 0.0);
                 glColor3f(.7, .7, .7); // gris
                 glutSolidSphere(0.28, 15, 15); // talon
             glPopMatrix();
 
+            // pie
             glPushMatrix();
                 glTranslatef(0, -2.8, 0.0);
                 glRotatef((GLfloat)pie, 0.0, 0.0, 1.0);

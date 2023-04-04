@@ -1,6 +1,6 @@
 #include <GL/glut.h>
 #include <stdlib.h>
-#include <stdio.h>
+#include <stdio.h> 
 
 typedef struct nodo Lista;
 
