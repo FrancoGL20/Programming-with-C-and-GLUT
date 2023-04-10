@@ -1,5 +1,3 @@
-// ah carajo!, no traje mis municiones
-// Deje la estufa encendida!!!
 #if WIN32
     #include <windows.h>
     #include <GL/glut.h>
@@ -110,6 +108,15 @@ void dibuja(void) {
             
             { // Torso
             glPushMatrix();
+
+                // Cuello
+                glPushMatrix();
+                    glColor3fv(rojo);
+                    glTranslatef(0.0, 4.0, 0.0);
+                    glScalef(0.4, 0.8, 0.4);
+                    glRotatef(-90, 1.0, 0.0, 0.0);
+                    gluCylinder(gluNewQuadric(), 1.5, 1.0, 1.0, 20, 20); // base, top, height, slices, stacks
+                glPopMatrix();
 
                 // Parte superior2 (torso)
                 glPushMatrix();
@@ -288,7 +295,7 @@ void dibuja(void) {
 
             { // Cabeza
             glPushMatrix();
-                glTranslatef(0.0, 6.0, 0.0);
+                glTranslatef(0.0, 5.85, 0.0);
 
                 // Cabeza
                 glPushMatrix();
