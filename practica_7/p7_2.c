@@ -321,7 +321,7 @@ int main(int argc, char **argv) {
     glutInitWindowPosition(100, 100);
     glutInitWindowSize(800,600);
     glutInit(&argc, argv);
-    glutCreateWindow("T4.1: Cubo");
+    glutCreateWindow("P7.2");
     creaTextura(); // Crea la textura
     glutDisplayFunc(dibuja);
     glutReshapeFunc(ajusta);
