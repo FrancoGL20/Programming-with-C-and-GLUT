@@ -20,7 +20,7 @@
 
 // Variables globales
 GLboolean malla = GL_FALSE, ejes = GL_FALSE;
-GLfloat girax = 45, giray = -30, zoom = 0;
+GLfloat girax = -60, giray = -165, zoom = 0;
 int rotar1=0;
 GLboolean animando = GL_FALSE;
 GLboolean armando = GL_TRUE;
@@ -275,15 +275,19 @@ void rotar(int key, int x, int y) {
     switch (key) {
         case GLUT_KEY_LEFT: // rotacion en el eje Y
             giray -= 15;
+            printf("giray: %f\n", giray);
             break;
         case GLUT_KEY_RIGHT: // rotacion en el eje Y
             giray += 15;
+            printf("giray: %f\n", giray);
             break;
         case GLUT_KEY_UP: // rotacion en el eje X
             girax -= 15;
+            printf("girax: %f\n", girax);
             break;
         case GLUT_KEY_DOWN: // rotacion en el eje X
             girax += 15;
+            printf("girax: %f\n", girax);
             break;
     }
     glutPostRedisplay();
