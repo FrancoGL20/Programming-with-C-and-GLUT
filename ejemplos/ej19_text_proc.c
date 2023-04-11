@@ -12,47 +12,52 @@ void creaTexturas(void){
         }
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, anchoTextura, altoTextura,
                 0, GL_RGB, GL_UNSIGNED_BYTE, imagen);
 }
 void dibuja(void){
     glClear(GL_COLOR_BUFFER_BIT);
-    glBegin(GL_QUADS); // Rectangulo superior izquierdo
-    glTexCoord2f(0.0, 0.0);
-    glVertex2f(-4.0, 0.0);
-    glTexCoord2f(1.0, 0.0);
-    glVertex2f(-2.0, 0.0);
-    glTexCoord2f(1.0, 1.0);
-    glVertex2f(-2.0, 4.0);
-    glTexCoord2f(0.0, 1.0);
-    glVertex2f(-4.0, 4.0);
-    // Cuadrado
-    glTexCoord2f(0.0, 0.0);
-    glVertex2f(4.0, 4.0);
-    glTexCoord2f(0.0, 1.0);
-    glVertex2f(4.0, 2.0);
-    glTexCoord2f(1.0, 1.0);
-    glVertex2f(2.0, 2.0);
-    glTexCoord2f(1.0, 0.0);
-    glVertex2f(2.0, 4.0);
-    // Rectángulo medio derecho
-    glTexCoord2f(0.0, 0.0);
-    glVertex2f(4.0, -0.5);
-    glTexCoord2f(0.0, 1.0);
-    glVertex2f(0.0, -0.5);
-    glTexCoord2f(1.0, 1.0);
-    glVertex2f(0.0, 1.5);
-    glTexCoord2f(1.0, 0.0);
-    glVertex2f(4.0, 1.5);
-    // Rectángulo inferior
-    glTexCoord2f(0.0, 0.0);
-    glVertex2f(4.0, -1.0);
-    glTexCoord2f(0.0, 2.0);
-    glVertex2f(4.0, -4.0);
-    glTexCoord2f(1.0, 2.0);
-    glVertex2f(-4.0, -4.0);
-    glTexCoord2f(1.0, 0.0);
-    glVertex2f(-4.0, -1.0);
+    glBegin(GL_QUADS); 
+        // Rectangulo superior izquierdo
+        glTexCoord2f(0.0, 0.0);
+        glVertex2f(-4.0, 0.0);
+        glTexCoord2f(1.0, 0.0);
+        glVertex2f(-2.0, 0.0);
+        glTexCoord2f(1.0, 1.0);
+        glVertex2f(-2.0, 4.0);
+        glTexCoord2f(0.0, 1.0);
+        glVertex2f(-4.0, 4.0);
+
+        // Cuadrado
+        glTexCoord2f(0.0, 0.0);
+        glVertex2f(4.0, 4.0);
+        glTexCoord2f(0.0, 1.0);
+        glVertex2f(4.0, 2.0);
+        glTexCoord2f(1.0, 1.0);
+        glVertex2f(2.0, 2.0);
+        glTexCoord2f(1.0, 0.0);
+        glVertex2f(2.0, 4.0);
+
+        // Rectángulo medio derecho
+        glTexCoord2f(0.0, 0.0);
+        glVertex2f(4.0, -0.5);
+        glTexCoord2f(0.0, 1.0);
+        glVertex2f(0.0, -0.5);
+        glTexCoord2f(1.0, 1.0);
+        glVertex2f(0.0, 1.5);
+        glTexCoord2f(1.0, 0.0);
+        glVertex2f(4.0, 1.5);
+
+        // Rectángulo inferior
+        glTexCoord2f(0.0, 0.0);
+        glVertex2f(4.0, -1.0);
+        glTexCoord2f(0.0, 2.0);
+        glVertex2f(4.0, -4.0);
+        glTexCoord2f(1.0, 2.0);
+        glVertex2f(-4.0, -4.0);
+        glTexCoord2f(1.0, 0.0);
+        glVertex2f(-4.0, -1.0);
     glEnd();
     glFlush();
 }
@@ -63,6 +68,7 @@ void ajusta(int w, int h){
     gluOrtho2D(-4.5, 4.5, -4.5, 4.5);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
+    
     glEnable(GL_TEXTURE_2D);
 }
 int main(int argc, char **argv){

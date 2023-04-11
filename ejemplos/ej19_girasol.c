@@ -9,9 +9,9 @@ GLubyte imagen[altoTextura][anchoTextura][3]; // textura procedimental en format
 void creaTextura(void) {
     for (int i = 0; i < altoTextura; i++) {
         for (int j = 0; j < anchoTextura; j++) {
-            imagen[i][j][0] = (i < ALTO && j < ANCHO) ? paleta2[deadpool[i][j]][0] : paleta2[0][0];
-            imagen[i][j][1] = paleta2[(i < ALTO && j < ANCHO) ? deadpool[i][j] : 0][1];
-            imagen[i][j][2] = paleta2[(i < ALTO && j < ANCHO) ? deadpool[i][j] : 0][2];
+            imagen[i][j][0] = (i < ALTO && j < ANCHO) ? paleta[deadpool[i][j]][0] : paleta[0][0];
+            imagen[i][j][1] = paleta[(i < ALTO && j < ANCHO) ? deadpool[i][j] : 0][1];
+            imagen[i][j][2] = paleta[(i < ALTO && j < ANCHO) ? deadpool[i][j] : 0][2];
         }
     }
     // GL_NEAREST: elige el color de la textura más cercano al pixel, 
@@ -38,19 +38,19 @@ void creaTextura(void) {
 void dibuja(void) {
     glClear(GL_COLOR_BUFFER_BIT);
     glBegin(GL_QUADS);
-        // Arriba derecha
+        // Arriba a la derecha
         glTexCoord2f(0.0, 0.0);
         glVertex2f(4.0, 4.0);
 
-        // Abajo izquierda
+        // Abajo a la derecha
         glTexCoord2f(0.0, 1.0);
         glVertex2f(4.0, -4.0);
 
-        // Abajo derecha
+        // Abajo a la izquierda
         glTexCoord2f(1.0, 1.0);
         glVertex2f(-4.0, -4.0);
 
-        // Arriba derecha
+        // Arriba a la izquierda
         glTexCoord2f(1.0, 0.0);
         glVertex2f(-4.0, 4.0);
     glEnd();

@@ -14,6 +14,9 @@
 #endif
 #include <stdio.h>
 #include <math.h>
+#include "../files/deadpool.h"                 //archivo .h
+#define anchoTextura 32                       // ancho potencia de 2
+#define altoTextura 32                        // alto potencia de 2
 
 // Variables globales
 GLboolean malla = GL_FALSE, ejes = GL_FALSE;
@@ -22,6 +25,37 @@ int rotar1=0;
 GLboolean animando = GL_FALSE;
 GLboolean armando = GL_TRUE;
 int angulo_maximo=90;
+GLubyte imagen[altoTextura][anchoTextura][3]; // textura procedimental en formato RGB
+
+// Función que crea la textura procedimental
+void creaTextura(void) {
+    for (int i = 0; i < altoTextura; i++) {
+        for (int j = 0; j < anchoTextura; j++) {
+            imagen[i][j][0] = (i < ALTO && j < ANCHO) ? paleta[deadpool[i][j]][0] : paleta[0][0];
+            imagen[i][j][1] = paleta[(i < ALTO && j < ANCHO) ? deadpool[i][j] : 0][1];
+            imagen[i][j][2] = paleta[(i < ALTO && j < ANCHO) ? deadpool[i][j] : 0][2];
+        }
+    }
+    // GL_NEAREST: elige el color de la textura más cercano al pixel, 
+    // GL_LINEAR: mezcla los colores de los 4 pixeles más cercanos
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST); // Cuando se hace más grande un objeto, se usa GL_NEAREST
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST); // Cuando se hace más pequeño un objeto, se usa GL_NEAREST
+
+    // GL_REPLACE: reemplaza el color del objeto por el de la textura, 
+    // GL_MODULATE: mezcla los colores del objeto y de la textura, 
+    // GL_DECAL: mezcla los colores del objeto y de la textura, pero no se mezcla el alpha, GL_BLEND: mezcla los colores del objeto y de la textura, pero se mezcla el alpha, 
+    // GL_ADD: suma los colores del objeto y de la textura, 
+    // GL_COMBINE: combina los colores del objeto y de la textura
+    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE); // Selecciona el modo de mezcla de colores
+
+    // GL_CLAMP: se repite el color del borde de la textura,
+    // GL_REPEAT: se repite la textura como un mosaico
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // Modo de repetición de la textura en el eje X
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT); // Modo de repetición de la textura en el eje Y
+
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, anchoTextura, altoTextura,
+                0, GL_RGB, GL_UNSIGNED_BYTE, imagen); // Guarda la textura en la memoria de video (VRAM)
+}
 
 // Rotacion XY y Zoom
 void mover(void) {
@@ -86,11 +120,15 @@ void dibuja(void) {
             creaEjes();
 
         // Base de cubo
-        glColor3f(0.0, 0.0, 1.0); // Color azul
+        // glColor3f(0.0, 0.0, 1.0); // Color azul
         glBegin(GL_POLYGON);
+            glTexCoord2f(0.0, 0.0); // Arriba a la derecha
             glVertex3f(x+lado,0,z+lado);
+            glTexCoord2f(0.0, 1.0); // Abajo a la derecha
             glVertex3f(x+lado,0,z-lado);
+            glTexCoord2f(2.0, 1.0); // Abajo a la izquierda
             glVertex3f(x-lado,0,z-lado);
+            glTexCoord2f(2.0, 0.0); // Arriba a la izquierda
             glVertex3f(x-lado,0,z+lado);
         glEnd();
 
@@ -101,9 +139,13 @@ void dibuja(void) {
             glTranslated(0, 0, -3);
             glColor3f(1.0, 0.0, 1.0); // Color morado
             glBegin(GL_POLYGON);
+                glTexCoord2f(0.0, 0.0); // Arriba a la derecha
                 glVertex3f(x+lado,0,z+lado);
+                glTexCoord2f(0.0, 1.0); // Abajo a la derecha
                 glVertex3f(x+lado,0,z-lado);
+                glTexCoord2f(3.0, 1.0); // Abajo a la izquierda
                 glVertex3f(x-lado,0,z-lado);
+                glTexCoord2f(3.0, 0.0); // Arriba a la izquierda
                 glVertex3f(x-lado,0,z+lado);
             glEnd();
         glPopMatrix();
@@ -115,9 +157,13 @@ void dibuja(void) {
             glTranslated(3, 0, 0);
             glColor3f(1.0, 0.0, 0.0); // Color rojo
             glBegin(GL_POLYGON);
+                glTexCoord2f(0.0, 0.0); // Arriba a la derecha
                 glVertex3f(x+lado,0,z+lado);
+                glTexCoord2f(0.0, 2.0); // Abajo a la derecha
                 glVertex3f(x+lado,0,z-lado);
+                glTexCoord2f(2.0, 2.0); // Abajo a la izquierda
                 glVertex3f(x-lado,0,z-lado);
+                glTexCoord2f(2.0, 0.0); // Arriba a la izquierda
                 glVertex3f(x-lado,0,z+lado);
             glEnd();
         glPopMatrix();
@@ -129,9 +175,13 @@ void dibuja(void) {
             glTranslated(-3, 0, 0);
             glColor3f(0.0, 1.0, 0.0); // Color verde
             glBegin(GL_POLYGON);
+                glTexCoord2f(0.0, 0.0); // Arriba a la derecha
                 glVertex3f(x+lado,0,z+lado);
+                glTexCoord2f(0.0, 2.0); // Abajo a la derecha
                 glVertex3f(x+lado,0,z-lado);
+                glTexCoord2f(3.0, 2.0); // Abajo a la izquierda
                 glVertex3f(x-lado,0,z-lado);
+                glTexCoord2f(3.0, 0.0); // Arriba a la izquierda
                 glVertex3f(x-lado,0,z+lado);
             glEnd();
         glPopMatrix();
@@ -145,9 +195,13 @@ void dibuja(void) {
             // Cara de enfrente del cubo
             glColor3f(1.0, 1.0, 0.0); // Color amarillo
             glBegin(GL_POLYGON);
+                glTexCoord2f(0.0, 0.0); // Arriba a la derecha
                 glVertex3f(x+lado,0,z+lado);
+                glTexCoord2f(0.0, 3.0); // Abajo a la derecha
                 glVertex3f(x+lado,0,z-lado);
+                glTexCoord2f(3.0, 3.0); // Abajo a la izquierda
                 glVertex3f(x-lado,0,z-lado);
+                glTexCoord2f(3.0, 0.0); // Arriba a la izquierda
                 glVertex3f(x-lado,0,z+lado);
             glEnd();
 
@@ -158,9 +212,13 @@ void dibuja(void) {
                 glTranslated(0, 0, 3);
                 glColor3f(0.0, 1.0, 1.0); // Color celeste
                 glBegin(GL_POLYGON);
+                    glTexCoord2f(0.0, 0.0); // Arriba a la derecha
                     glVertex3f(x+lado,0,z+lado);
+                    glTexCoord2f(0.0, 1.0); // Abajo a la derecha
                     glVertex3f(x+lado,0,z-lado);
+                    glTexCoord2f(1.0, 1.0); // Abajo a la izquierda
                     glVertex3f(x-lado,0,z-lado);
+                    glTexCoord2f(1.0, 0.0); // Arriba a la izquierda
                     glVertex3f(x-lado,0,z+lado);
                 glEnd();
             glPopMatrix();
@@ -250,14 +308,17 @@ void ajusta(int anchoA, int altoA) {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glOrtho(-15, 15, -15, 15, -15, 15);
+    
+    glEnable(GL_TEXTURE_2D); // Habilitar uso texturas
 }
 
 int main(int argc, char **argv) {
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
     glutInitWindowPosition(100, 100);
-    glutInitWindowSize(800,600); // relación de aspecto 800x600 (4:3)
+    glutInitWindowSize(800,600);
     glutInit(&argc, argv);
     glutCreateWindow("T4.1: Cubo");
+    creaTextura(); // Crea la textura
     glutDisplayFunc(dibuja);
     glutReshapeFunc(ajusta);
     glutKeyboardFunc(teclado);
