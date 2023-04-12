@@ -275,19 +275,15 @@ void rotar(int key, int x, int y) {
     switch (key) {
         case GLUT_KEY_LEFT: // rotacion en el eje Y
             giray -= 15;
-            printf("giray: %f\n", giray);
             break;
         case GLUT_KEY_RIGHT: // rotacion en el eje Y
             giray += 15;
-            printf("giray: %f\n", giray);
             break;
         case GLUT_KEY_UP: // rotacion en el eje X
             girax -= 15;
-            printf("girax: %f\n", girax);
             break;
         case GLUT_KEY_DOWN: // rotacion en el eje X
             girax += 15;
-            printf("girax: %f\n", girax);
             break;
     }
     glutPostRedisplay();

@@ -3,9 +3,9 @@
 #include "tuxtex.h" // Archivo con textura procedural
 
 // Variables globales
-GLuint texturas[4];         // 4 texturas
+GLuint texturas[4]; // Id's de las texturas
 GLubyte pixeles[32][32][3]; // Para textura pixeles (tux)
-GLubyte proced[64][64][3];  // Para textura procedural (
+GLubyte proced[64][64][3];  // Para textura procedural (espacio con estrellas)
 GLubyte paleta[6][3] = {{230, 50, 50}, {0, 0, 0}, {80, 80, 80}, {255, 125, 0}, {255, 255, 0}, {255, 255, 255}};
 
 // Carga imagen de archivo data y la convierte en textura de OpenGL
@@ -34,6 +34,7 @@ void cargaTextura_data(int ancho, int alto, const char *archivo, GLuint *text, i
 void dibuja(void){
     glClear(GL_COLOR_BUFFER_BIT);
 
+    // Fondo de color rojo
     glDisable(GL_TEXTURE_2D);
     glColor3ubv(paleta[0]);
     glBegin(GL_QUADS); // pared
@@ -43,22 +44,28 @@ void dibuja(void){
         glVertex3f(5.8, -3.8, -0.5);
     glEnd();
 
+    // Espacio con estrellas
     glEnable(GL_TEXTURE_2D);
     glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE); // Modo de mezcla de texturas
     glBindTexture(GL_TEXTURE_2D, texturas[2]); // espacio
     glBegin(GL_QUADS);
         glTexCoord2f(0.0, 0.0);
         glVertex3f(-2.5, 2.5, 0);
+
         glTexCoord2f(0.0, 6.0);
         glVertex3f(-2.5, -0.6, 0);
+
         glTexCoord2f(3.0, 6.0);
         glVertex3f(2.5, -0.6, 0);
+
         glTexCoord2f(3.0, 0.0);
         glVertex3f(2.5, 2.5, 0);
     glEnd();
 
+    // Marco de los 4 lados
     glBindTexture(GL_TEXTURE_2D, texturas[1]); // marco
-    glBegin(GL_QUADS);                         // Superior
+    glBegin(GL_QUADS);
+        // Superior
         glTexCoord2f(0.0, 0.0);
         glVertex3f(-3., 3., .5);
         glTexCoord2f(1.0, 0.0);
@@ -96,6 +103,7 @@ void dibuja(void){
         glVertex3f(3., -1., .5);
     glEnd();
 
+    // Tux asomandose (pinguino)
     glBindTexture(GL_TEXTURE_2D, texturas[3]); // Tux asomandose
     glBegin(GL_QUADS);
         glTexCoord2f(0.0, 1.0);
@@ -108,7 +116,8 @@ void dibuja(void){
         glVertex3f(4., -3.8, 1);
     glEnd();
 
-    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_ADD);
+    // Esfera con textura de la tierra
+    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_ADD); // Modo de mezcla de texturas
     glBindTexture(GL_TEXTURE_2D, texturas[0]); // esfera
     glEnable(GL_TEXTURE_GEN_S);
     glEnable(GL_TEXTURE_GEN_T);
@@ -131,6 +140,7 @@ void ajusta(int ancho, int alto){
     glLoadIdentity();
 }
 
+// Función para cargar todas las texturas que se usarán
 void carga_texturas(){
     // Texturas de imagenes .data
     cargaTextura_data(1000, 500, "PTierra.data", &texturas[0], 0, GL_TRUE);
@@ -166,7 +176,7 @@ void carga_texturas(){
 
 // Función que controla las teclas normales
 void salir(unsigned char key, int x, int y){
-    if (key == 27){
+    if (key == 27) {
         for (int i = 0; i < 4; i++)
             glDeleteTextures(i, &texturas[i]);
         exit(0);

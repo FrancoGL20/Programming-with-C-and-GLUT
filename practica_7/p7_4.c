@@ -17,7 +17,7 @@ void leeImagen(){
     fclose(imagen);
 }
 
-// Función que carga la textura de la imagen
+// Función que carga la textura de la imagen// Función que carga la textura de la imagen// Función que carga la 
 void cargaTextura(){
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, ancho, alto, 0, GL_RGB, GL_UNSIGNED_BYTE, datos);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
