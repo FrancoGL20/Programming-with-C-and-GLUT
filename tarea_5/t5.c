@@ -18,7 +18,7 @@
 
 // Variables globales
 GLfloat girax = 0, giray = 0;
-GLboolean malla = GL_FALSE, ejes = GL_TRUE;
+GLboolean malla = GL_FALSE, ejes = GL_FALSE;
 // variable que guarde un vector de 3 colores
 GLfloat rojo[3] = {0.9, 0.0, 0.0};
 GLfloat negro[3]={0.0,0.0,0.0};
