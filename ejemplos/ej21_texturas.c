@@ -49,9 +49,11 @@ void dibuja(void){
     glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE); // Modo de mezcla de texturas
     glBindTexture(GL_TEXTURE_2D, texturas[2]); // espacio
     glBegin(GL_QUADS);
+        // Superior izquierdo
         glTexCoord2f(0.0, 0.0);
         glVertex3f(-2.5, 2.5, 0);
 
+        // Superior derecho
         glTexCoord2f(0.0, 6.0);
         glVertex3f(-2.5, -0.6, 0);
 
