@@ -40,13 +40,13 @@ void cambia_modo(enum mod m) {
     modo = m;
     switch (modo) {
         case edicion:
-            printf("Modo edición activado, mueve el punto seleccionado\n");
+            printf("Modo edición activado\n");
             break;
         case seleccion:
-            printf("Modo selección activado, seleccionar el punto con el que se va a trabajar\n");
+            printf("Modo selección activado\n");
             break;
         case visualizacion:
-            printf("Modo visualización activado, las distracciones visuales han sido removidas\n");
+            printf("Modo visualización activado\n");
             malla = GL_FALSE;
             ejes = GL_FALSE;
             break;
@@ -266,7 +266,7 @@ void ajusta(int ancho, int alto) {
     glViewport(0, 0, ancho, alto);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(-12.0, 12.0, -12.0, 12.0, -12.0, 12.0);
+    glOrtho(-12.0, 12.0, -12.0, 12.0, -20.0, 25.0);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 }
