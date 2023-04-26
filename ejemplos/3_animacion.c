@@ -1,6 +1,17 @@
-#include <GL/glut.h>
-#include <GL/gl.h>
-#include <GL/glu.h>
+#if WIN32
+    #include <windows.h>
+    #include <GL/glut.h>
+#endif
+#if __APPLE__
+    #define GL_SILENCE_DEPRECATION
+    #include <OpenGL/gl.h>
+    #include <GLUT/glut.h>
+    #include <OpenGL/glu.h>
+#else
+    #include <GL/glut.h>
+    #include <GL/gl.h>
+    #include <GL/glu.h>
+#endif
 
 #include <stdlib.h>
 #include <math.h>

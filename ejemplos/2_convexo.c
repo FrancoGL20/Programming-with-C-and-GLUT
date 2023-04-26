@@ -1,5 +1,18 @@
+#if WIN32
+    #include <windows.h>
+    #include <GL/glut.h>
+#endif
+#if __APPLE__
+    #define GL_SILENCE_DEPRECATION
+    #include <OpenGL/gl.h>
+    #include <GLUT/glut.h>
+    #include <OpenGL/glu.h>
+#else
+    #include <GL/glut.h>
+    #include <GL/gl.h>
+    #include <GL/glu.h>
+#endif
 #include <stdbool.h> // bool, true, false
-#include <GL/glut.h>
 
 int pos_x[60], pos_y[60];
 int puntos = 0;
