@@ -12,17 +12,20 @@
     #include <GL/gl.h>
     #include <GL/glu.h>
 #endif
-#include <stdbool.h> // bool, true, false
+
+#include <stdbool.h>
 
 int pos_x[60], pos_y[60];
 int puntos = 0;
 GLboolean fin = GL_FALSE;
+
 void ajusta(int ancho, int alto) {
     glClearColor(1.0, 1.0, 1.0, 0.0);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     gluOrtho2D(0.0, 640.0, 0.0, 480.0);
 }
+
 void raton(int boton, int estado, int x, int y) {
     int alto_ventana = 480;
     if (!fin) {
@@ -34,25 +37,29 @@ void raton(int boton, int estado, int x, int y) {
         glutPostRedisplay();
     }
 }
+
 void termina(int tecla, int x, int y) {
     switch (tecla) {
-    case GLUT_KEY_END: // Tecla Fin
+    case GLUT_KEY_END:
         fin = GL_TRUE;
         break;
-    case GLUT_KEY_HOME: // Tecla Inicio
+    case GLUT_KEY_HOME:
         puntos = 0;
         fin = GL_FALSE;
     }
     glutPostRedisplay();
 }
+
 void teclado(unsigned char tecla, int x, int y) {
     if (tecla == 27)
         exit(0); // Esc =>Salir del programa
 }
+
 bool ccw(int a, int b, int c) {
     double area2 = (pos_x[b] - pos_x[a]) * (pos_y[c] - pos_y[a]) - (pos_y[b] - pos_y[a]) * (pos_x[c] - pos_x[a]);
     return area2 >= 0;
 }
+
 void dibuja(void) {
     glClear(GL_COLOR_BUFFER_BIT);
     glColor3f(0, 0, 0);
@@ -68,14 +75,13 @@ void dibuja(void) {
     for (i = 0; i < puntos; i++)
         glVertex2i(pos_x[i], pos_y[i]);
     glEnd();
-
     glBegin(fin ? GL_LINE_LOOP : GL_LINE_STRIP);
     for (i = 0; i < puntos; i++)
         glVertex2i(pos_x[i], pos_y[i]);
     glEnd();
-    
     glFlush();
 }
+
 int main(int argc, char **argv) {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGBA);
