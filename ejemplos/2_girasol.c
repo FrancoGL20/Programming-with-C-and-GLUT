@@ -32,8 +32,7 @@ void dibuja(void) {
     glPointSize(tam);
     glBegin(GL_POINTS);
     for (int i = 0; i < ALTO; i++)
-        for (int j = 0; j < ANCHO; j++)
-        {
+        for (int j = 0; j < ANCHO; j++) {
             glColor3ubv(paleta1[girasol[i][j]]);
             glVertex2i(190 + j * tam, 390 - i * tam);
         }
