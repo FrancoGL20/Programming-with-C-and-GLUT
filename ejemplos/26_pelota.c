@@ -1,4 +1,18 @@
-#include <GL/glut.h>
+#if WIN32
+    #include <windows.h>
+    #include <GL/glut.h>
+#endif
+#if __APPLE__
+    #define GL_SILENCE_DEPRECATION
+    #include <OpenGL/gl.h>
+    #include <GLUT/glut.h>
+    #include <OpenGL/glu.h>
+#else
+    #include <GL/glut.h>
+    #include <GL/gl.h>
+    #include <GL/glu.h>
+#endif
+
 #define GRAVEDAD -9.8
 #define MASA 200  // masa de la pelota
 double h = 0.075; // h incrementos de tiempo
@@ -10,8 +24,7 @@ GLboolean bx = GL_FALSE;
 GLboolean by = GL_FALSE;
 GLboolean bz = GL_FALSE;
 
-void integraEuler()
-{
+void integraEuler() {
     // v(t+h)=v(t)+F(t)/m*h
     if (bx)
         velocidad[0] += fzaX * h;
@@ -25,8 +38,7 @@ void integraEuler()
     posicion[2] += velocidad[2] * h;
 }
 
-void ajusta(int alto, int ancho)
-{
+void ajusta(int alto, int ancho) {
     glClearColor(0.5, 0.5, 0.5, 0);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -34,8 +46,8 @@ void ajusta(int alto, int ancho)
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 }
-void dibuja(void)
-{
+
+void dibuja(void) {
     glClear(GL_COLOR_BUFFER_BIT);
 
     glColor3ub(0, 0, 0);
@@ -51,38 +63,33 @@ void dibuja(void)
     glPopMatrix();
     glutSwapBuffers();
 }
-void mueve(void)
-{
+
+void mueve(void) {
     integraEuler();
     // colisiones
-    if (posicion[0] >= 5 || posicion[0] <= -5)
-    { // X
+    if (posicion[0] >= 5 || posicion[0] <= -5) { // X
         fzaX = -1 * fzaX;
         velocidad[0] = 0;
         posicion[0] = (posicion[0] >= 5) ? 4.8 : -4.8;
     }
-    if (posicion[1] >= 5)
-    { // Y Arriba
+    if (posicion[1] >= 5) { // Y Arriba
         velocidad[1] = 0;
         posicion[1] = 4.2;
     }
-    if (posicion[1] <= -5)
-    { // Y Abajo
+    if (posicion[1] <= -5) { // Y Abajo
         velocidad[1] = 0.9;
         posicion[1] = -4.8;
     }
-    if (posicion[2] >= 5 || posicion[2] <= -5)
-    { // Z
+    if (posicion[2] >= 5 || posicion[2] <= -5) { // Z
         fzaZ = -1 * fzaZ;
         velocidad[2] = 0;
         posicion[2] = (posicion[2] >= 5) ? 4.8 : -4.8;
     }
     glutPostRedisplay();
 }
-void teclado(unsigned char key, int x, int y)
-{
-    switch (key)
-    {
+
+void teclado(unsigned char key, int x, int y) {
+    switch (key) {
     case 27:
         exit(0);
     case 'x':
@@ -95,8 +102,7 @@ void teclado(unsigned char key, int x, int y)
         bz = !bz;
     }
 }
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);
     glutInit(&argc, argv);
     glutInitWindowSize(600, 600);
