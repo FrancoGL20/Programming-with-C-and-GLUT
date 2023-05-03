@@ -334,8 +334,7 @@ void display(void) {
             glVertex3fv(particles[i].position);
         }
         glEnd();
-    }
-    else {
+    } else {
         glBegin(GL_LINES);
         for (i = 0; i < num_particles; i++) {
             if (particles[i].alive == 0)
@@ -576,18 +575,23 @@ int main(int argc, char **argv) {
         glutKeyboardFunc(keyboard);
     #endif
 
+    // Manejo de los argumentos enviados por consola
     if (argc > 1) {
         if (strcmp(argv[1], "-h") == 0) {
             fprintf(stderr, "%s [particles] [flow] [speed%%]\n", argv[0]);
             exit(0);
         }
+        // Si se envia un argumento, se toma como cantidad de particulas
         sscanf(argv[1], "%d", &num_particles);
+        // Si se envian dos argumentos, se toma como cantidad de particulas y flujo
         if (argc > 2)
             sscanf(argv[2], "%f", &flow);
+        // Si se envian tres argumentos, se toma como cantidad de particulas, flujo y velocidad
         if (argc > 3)
             sscanf(argv[3], "%f", &slow_down);
     }
 
+    // Se inicializa el sistema de particulas
     particles = (PSparticle *)malloc(sizeof(PSparticle) * num_particles);
 
     glutVisibilityFunc(visible);
