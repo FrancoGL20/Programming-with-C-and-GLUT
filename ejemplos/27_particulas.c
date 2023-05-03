@@ -23,8 +23,7 @@
 #define PS_GRAVITY -9.8
 #define masa 0.75 // masa de la partícula
 #define dt 0.005  // h incrementos de tiempo
-typedef struct
-{
+typedef struct {
     float position[3];
     float velocity[3];
 } PSparticle;
@@ -33,8 +32,7 @@ int num_particles = 10000;
 int type = PS_WATERFALL;
 int np = 0;    // contador de particulas
 int flujo = 2; // particulas emitidas por unidad de tiempo
-void psTimeStep(PSparticle *p)
-{
+void psTimeStep(PSparticle *p) {
     // v(t+h)=v(t)+F(t)/m*h
     p->velocity[0] += 0;
     p->velocity[1] += PS_GRAVITY / masa * dt;
@@ -44,10 +42,8 @@ void psTimeStep(PSparticle *p)
     p->position[1] += p->velocity[1] * dt;
     p->position[2] += p->velocity[2] * dt;
 }
-void psNewParticle(PSparticle *p)
-{
-    if (type == PS_WATERFALL)
-    {
+void psNewParticle(PSparticle *p) {
+    if (type == PS_WATERFALL) {
         p->velocity[0] = -2 * drand48();
         p->velocity[1] = 0;
         p->velocity[2] = 0.5 * drand48();
@@ -55,8 +51,7 @@ void psNewParticle(PSparticle *p)
         p->position[1] = 2.5;
         p->position[2] = 0;
     }
-    else if (type == PS_FOUNTAIN)
-    {
+    else if (type == PS_FOUNTAIN) {
         p->velocity[0] = 2 * (drand48() - 0.5);
         p->velocity[1] = 6;
         p->velocity[2] = 2 * (drand48() - 0.5);
@@ -65,8 +60,7 @@ void psNewParticle(PSparticle *p)
         p->position[2] = 0;
     }
 }
-void reshape(int width, int height)
-{
+void reshape(int width, int height) {
     glClearColor(0, 0, 0, 0);
     glViewport(0, 0, width, height);
     glMatrixMode(GL_PROJECTION);
@@ -77,15 +71,13 @@ void reshape(int width, int height)
     gluLookAt(0, 1, 3, 0, 1, 0, 0, 1, 0);
     glPointSize(3);
 }
-void display(void)
-{
+void display(void) {
     static int i;
     static float c;
     glClear(GL_COLOR_BUFFER_BIT);
     glPushMatrix();
     glBegin(GL_POINTS);
-    for (i = 0; i < np; i++)
-    {
+    for (i = 0; i < np; i++) {
         // asignar color por posición
         c = particles[i].position[1] / 2.5 * 255;
         glColor3ub(c, 128 + c * 0.5, 255);
@@ -95,13 +87,11 @@ void display(void)
     glPopMatrix();
     glutSwapBuffers();
 }
-void idle(void)
-{
+void idle(void) {
     int i;
     // crea nuevas particulas
     if (np < num_particles)
-        for (i = 0; i < flujo; i++)
-        {
+        for (i = 0; i < flujo; i++) {
             psNewParticle(&particles[np]);
             np++;
         }
@@ -110,15 +100,12 @@ void idle(void)
         psTimeStep(&particles[i]);
     glutPostRedisplay();
 }
-void bail(int code)
-{
+void bail(int code) {
     free(particles);
     exit(code);
 }
-void keyboard(unsigned char key, int x, int y)
-{
-    switch (key)
-    {
+void keyboard(unsigned char key, int x, int y) {
+    switch (key) {
     case 27:
         bail(0);
     case 't':
@@ -133,8 +120,7 @@ void keyboard(unsigned char key, int x, int y)
             flujo--;
     }
 }
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);
     glutInitWindowPosition(0, 0);
     glutInitWindowSize(640, 480);
