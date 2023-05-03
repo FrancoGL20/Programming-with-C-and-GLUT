@@ -1,6 +1,20 @@
 /* Basado en codigo particle.c de Nate Robins, 1998 */
+#if WIN32
+    #include <windows.h>
+    #include <GL/glut.h>
+#endif
+#if __APPLE__
+    #define GL_SILENCE_DEPRECATION
+    #include <OpenGL/gl.h>
+    #include <GLUT/glut.h>
+    #include <OpenGL/glu.h>
+#else
+    #include <GL/glut.h>
+    #include <GL/gl.h>
+    #include <GL/glu.h>
+#endif
+
 #include <stdlib.h>
-#include <GL/glut.h>
 #ifdef _WIN32
 #define drand48() ((float)rand() / RAND_MAX)
 #endif
