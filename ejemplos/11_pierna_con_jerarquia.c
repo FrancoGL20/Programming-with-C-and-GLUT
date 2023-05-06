@@ -12,11 +12,11 @@
     #include <GL/gl.h>
     #include <GL/glu.h>
 #endif
-
 #include <stdlib.h>
+
 int muslo = 0, pantorrilla = 0, pie = 0;
-void dibuja(void)
-{
+
+void dibuja(void) {
     glClear(GL_COLOR_BUFFER_BIT);
     glPushMatrix();
     glRotatef((GLfloat)muslo, 0.0, 0.0, 1.0);
@@ -59,10 +59,9 @@ void dibuja(void)
     glPopMatrix();
     glutSwapBuffers();
 }
-void teclado(unsigned char key, int x, int y)
-{
-    switch (key)
-    {
+
+void teclado(unsigned char key, int x, int y) {
+    switch (key) {
     case 27:
         exit(0);
     case 'M':
@@ -98,8 +97,8 @@ void teclado(unsigned char key, int x, int y)
     }
     glutPostRedisplay();
 }
-void ajusta(int ancho, int alto)
-{
+
+void ajusta(int ancho, int alto) {
     glClearColor(0., 0., 0., 0.);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -107,8 +106,8 @@ void ajusta(int ancho, int alto)
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 }
-int main(int argc, char **argv)
-{
+
+int main(int argc, char **argv) {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
     glutInitWindowSize(500, 500);
