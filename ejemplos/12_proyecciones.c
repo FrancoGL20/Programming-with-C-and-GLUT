@@ -1,14 +1,29 @@
-#include <GL/glut.h>
+#if WIN32
+    #include <windows.h>
+    #include <GL/glut.h>
+#endif
+#if __APPLE__
+    #define GL_SILENCE_DEPRECATION
+    #include <OpenGL/gl.h>
+    #include <GLUT/glut.h>
+    #include <OpenGL/glu.h>
+#else
+    #include <GL/glut.h>
+    #include <GL/gl.h>
+    #include <GL/glu.h>
+#endif
 
 GLUquadricObj *cilindro;
-GLfloat girax = 0, giray = 0, zoom = 0;
+GLfloat girax = 30, giray = -30, zoom = 0;
 GLboolean malla = GL_FALSE, ejes = GL_TRUE;
+
 //   Rotacion XY y Zoom
 void mover(void) {
     glTranslated(0, 0, zoom);
     glRotated(giray, 0.0, 1.0, 0.0);
     glRotated(girax, 1.0, 0.0, 0.0);
 }
+
 //  Malla y Ejes
 void creaMalla(int long_eje) {
     glColor3f(1.0, 0.0, 0.0);
@@ -22,6 +37,7 @@ void creaMalla(int long_eje) {
     }
     glEnd();
 }
+
 void creaEjes(void) {
     glColor3f(0.0, 0.0, 0.0);
     glBegin(GL_LINES);
@@ -46,6 +62,7 @@ void creaEjes(void) {
         glVertex3f(.50, 0.0, 10.5);
     glEnd();
 }
+
 void dibuja(void) {
     // limpiar frame buffer y Z-buffer
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -62,6 +79,7 @@ void dibuja(void) {
     glPopMatrix();
     glutSwapBuffers();
 }
+
 // Funciones con Teclas
 void teclado(unsigned char key, int x, int y) {
     switch (key) {
@@ -96,6 +114,7 @@ void teclado(unsigned char key, int x, int y) {
     }
     glutPostRedisplay();
 }
+
 void rotar(int key, int x, int y) {
     switch (key) {
         case GLUT_KEY_LEFT: // rotacion en el eje Y
@@ -113,12 +132,19 @@ void rotar(int key, int x, int y) {
     }
     glutPostRedisplay();
 }
+
 void ajusta(int ancho, int alto) {
     glClearColor(1.0, 1.0, 1.0, 0.0); // color de fondo
     glMatrixMode(GL_MODELVIEW);       // matriz de modelado
     glLoadIdentity();                 // matriz identidad
     glEnable(GL_DEPTH_TEST);          // activa el Z-buffer
+
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(-15, 15, -15, 15, -30, 30);
+    zoom = 0;
 }
+
 int main(int argc, char **argv) {
     // mode: RGB, doble buffer, Z-buffer
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
