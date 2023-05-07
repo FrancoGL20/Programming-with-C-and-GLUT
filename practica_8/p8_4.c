@@ -58,17 +58,6 @@ void integraEuler() {
     }
 }
 
-void ajusta(int alto, int ancho) {
-    glClearColor(0.5, 0.5, 0.5, 0);
-
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-
-    gluPerspective(60, (float)alto / ancho, 1, 100);
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-}
-
 void dibuja(void) {
     glClear(GL_COLOR_BUFFER_BIT);
 
@@ -131,6 +120,17 @@ void teclado(unsigned char key, int x, int y) {
     case 'z':
         bz = !bz;
     }
+}
+
+void ajusta(int alto, int ancho) {
+    glClearColor(0.5, 0.5, 0.5, 0);
+
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+
+    gluPerspective(60, (float)alto / ancho, 1, 100);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
 }
 
 int main(int argc, char **argv) {
