@@ -236,10 +236,6 @@ void dibuja(void) {
                             glEnd();
 
                             glColor3f(1.0, 0.0, 0.0);
-                            // glPointSize(15.0);
-                            // glBegin(GL_POINTS);
-                            //     glVertex3fv(&ptosctl[i][j][0]);
-                            // glEnd();
                             
                             glPushMatrix();
                                 glTranslatef(ptosctl[i][j][0], ptosctl[i][j][1], ptosctl[i][j][2]);
