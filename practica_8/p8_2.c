@@ -244,7 +244,6 @@ void dibuja(void) {
                                 creaEjes();
                             glPopMatrix();
 
-
                             glColor3f(0.0, 0.0, 1.0);
                             // glPointSize(7.0);
                             glBegin(GL_POINTS);
@@ -258,6 +257,7 @@ void dibuja(void) {
     glPopMatrix();
     glFlush();
 }
+
 void ajusta(int ancho, int alto) {
     glViewport(0, 0, ancho, alto);
     glMatrixMode(GL_PROJECTION);
@@ -266,6 +266,7 @@ void ajusta(int ancho, int alto) {
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 }
+
 int main(int argc, char **argv) {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
