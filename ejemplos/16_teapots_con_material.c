@@ -15,8 +15,7 @@
 
 #include <stdlib.h>
 
-void myinit(void)
-{
+void myinit(void) {
     GLfloat ambient[] = {0.0, 0.0, 0.0, 1.0};
     GLfloat diffuse[] = {1.0, 1.0, 1.0, 1.0};
     GLfloat position[] = {0.0, 3.0, 3.0, 0.0};
@@ -29,6 +28,7 @@ void myinit(void)
     glEnable(GL_NORMALIZE);
     glEnable(GL_DEPTH_TEST);
 }
+
 void renderTeapot(GLfloat x, GLfloat y,
                   GLfloat ambr, GLfloat ambg, GLfloat ambb,
                   GLfloat difr, GLfloat difg, GLfloat difb,
@@ -55,8 +55,8 @@ void renderTeapot(GLfloat x, GLfloat y,
         glutSolidTeapot(2.5);
     glPopMatrix();
 }
-void display(void)
-{
+
+void display(void) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     // Laton, color amarillo
     renderTeapot(5.0, 10.0, 0.329412, 0.223529, 0.027451,
@@ -74,16 +74,16 @@ void display(void)
 
     glFlush();
 }
-void myReshape(int w, int h)
-{
+
+void myReshape(int w, int h) {
     glViewport(0, 0, w, h);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glOrtho(0.0, 20.0, 0.0, 20.0, -10.0, 10.0);
     glMatrixMode(GL_MODELVIEW);
 }
-int main(int argc, char **argv)
-{
+
+int main(int argc, char **argv) {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
     glutCreateWindow("Materiales");
