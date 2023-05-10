@@ -1,5 +1,19 @@
+#if WIN32
+    #include <windows.h>
+    #include <GL/glut.h>
+#endif
+#if __APPLE__
+    #define GL_SILENCE_DEPRECATION
+    #include <OpenGL/gl.h>
+    #include <GLUT/glut.h>
+    #include <OpenGL/glu.h>
+#else
+    #include <GL/glut.h>
+    #include <GL/gl.h>
+    #include <GL/glu.h>
+#endif
+
 #include <stdio.h>
-#include <GL/glut.h>
 #include "tuxtex.h" // Archivo con textura procedural
 
 // Variables globales
@@ -9,10 +23,10 @@ GLubyte proced[64][64][3];  // Para textura procedural (espacio con estrellas)
 GLubyte paleta[6][3] = {{230, 50, 50}, {0, 0, 0}, {80, 80, 80}, {255, 125, 0}, {255, 255, 0}, {255, 255, 255}};
 
 // Carga imagen de archivo data y la convierte en textura de OpenGL
-void cargaTextura_data(int ancho, int alto, const char *archivo, GLuint *text, int id_textura, GLboolean esfera){
+void cargaTextura_data(int ancho, int alto, const char *archivo, GLuint *text, int id_textura, GLboolean esfera) {
     unsigned char *datos;
     FILE *file = fopen(archivo, "rb");
-    if (file == NULL)    {
+    if (file == NULL) {
         printf("archivo no encontrado");
         exit(1);
     }
@@ -22,7 +36,7 @@ void cargaTextura_data(int ancho, int alto, const char *archivo, GLuint *text, i
 
     glGenTextures(id_textura, text);
     glBindTexture(GL_TEXTURE_2D, *text);
-    if (esfera)    {
+    if (esfera) {
         glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP);
         glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP);
     }
@@ -31,7 +45,7 @@ void cargaTextura_data(int ancho, int alto, const char *archivo, GLuint *text, i
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, ancho, alto, 0, GL_RGB, GL_UNSIGNED_BYTE, datos);
 }
 
-void dibuja(void){
+void dibuja(void) {
     glClear(GL_COLOR_BUFFER_BIT);
 
     // Fondo de color rojo
@@ -133,7 +147,7 @@ void dibuja(void){
     glFlush();
 }
 
-void ajusta(int ancho, int alto){
+void ajusta(int ancho, int alto) {
     glClearColor(.5, .5, .5, 1);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -143,14 +157,14 @@ void ajusta(int ancho, int alto){
 }
 
 // Función para cargar todas las texturas que se usarán
-void carga_texturas(){
+void carga_texturas() {
     // Texturas de imagenes .data
     cargaTextura_data(1000, 500, "PTierra.data", &texturas[0], 0, GL_TRUE);
     cargaTextura_data(127, 127, "madera.data", &texturas[1], 1, GL_FALSE);
 
     // Textura procedural espacio estrellado
     for (int i = 0; i < 64; i++) 
-        for (int j = 0; j < 64; j++)        {
+        for (int j = 0; j < 64; j++) {
             GLboolean estrella = rand() % 100 == 0;
             proced[i][j][0] = (estrella) ? 255 : 0;
             proced[i][j][1] = (estrella) ? 255 : 0;
@@ -164,7 +178,7 @@ void carga_texturas(){
 
     // Textura procedural Tux
     for (int i = 0; i < 32; i++)
-        for (int j = 0; j < 32; j++){
+        for (int j = 0; j < 32; j++) {
             pixeles[i][j][0] = paleta[tux[i][j]][0];
             pixeles[i][j][1] = paleta[tux[i][j]][1];
             pixeles[i][j][2] = paleta[tux[i][j]][2];
@@ -177,7 +191,7 @@ void carga_texturas(){
 }
 
 // Función que controla las teclas normales
-void salir(unsigned char key, int x, int y){
+void salir(unsigned char key, int x, int y) {
     if (key == 27) {
         for (int i = 0; i < 4; i++)
             glDeleteTextures(i, &texturas[i]);
@@ -185,7 +199,7 @@ void salir(unsigned char key, int x, int y){
     }
 }
 
-int main(int argc, char **argv){
+int main(int argc, char **argv) {
     glutInit(&argc, argv);
     glutInitWindowSize(600, 400);
     glutInitDisplayMode(GLUT_RGB | GLUT_SINGLE);
