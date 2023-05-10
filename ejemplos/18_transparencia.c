@@ -1,8 +1,7 @@
 #include <GL/glut.h>
 #include <stdlib.h>
 GLfloat puntos[4][3] = {{-3., -3., 0.}, {-3, 3.0, 0.0}, {0.5, 3.0, 0.0}, {0.5, -3.0, 0.0}};
-void dibuja(void)
-{
+void dibuja(void) {
     int i;
     glClear(GL_COLOR_BUFFER_BIT);
     glBegin(GL_QUADS);
@@ -15,8 +14,7 @@ void dibuja(void)
     glEnd();
     glFlush();
 }
-void ajusta(int ancho, int alto)
-{
+void ajusta(int ancho, int alto) {
     glClearColor(1.0, 1.0, 1.0, 0.0);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -25,10 +23,8 @@ void ajusta(int ancho, int alto)
     glLoadIdentity();
     glEnable(GL_BLEND);
 }
-void teclado(unsigned char tecla, int x, int y)
-{
-    switch (tecla)
-    {
+void teclado(unsigned char tecla, int x, int y) {
+    switch (tecla) {
     case 27:
         exit(0);
     case 'o': // Equivale a glDisable(GL_BLEND)
@@ -39,8 +35,7 @@ void teclado(unsigned char tecla, int x, int y)
     }
     glutPostRedisplay();
 }
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGBA);
     glutInitWindowSize(500, 500);
