@@ -29,7 +29,7 @@ float mat_brillo = 64; // Se define el brillo de la superficie (0-128)
 float foco_ambiente_difusa[] = {1, 1, .1, 0};
 float foco_emision[] = {0.5, 0.5, 0, 0};
 
-void ajusta(int ancho, int alto){
+void ajusta(int ancho, int alto) {
     glClearColor(0.9, 0.9, 0.9, 0.0);
 
     glLightfv(GL_LIGHT0, GL_AMBIENT, luz_ambiente);
@@ -48,7 +48,7 @@ void ajusta(int ancho, int alto){
     glLoadIdentity();
 }
 
-void dibuja(void){
+void dibuja(void) {
     glClear(GL_COLOR_BUFFER_BIT);
 
     // Foco
@@ -76,6 +76,7 @@ void dibuja(void){
     // Vacia el buffer de dibujo
     glFlush(); 
 }
+
 void teclado(unsigned char key, int x, int y) {
     switch (key) {
         case 27:
@@ -83,7 +84,8 @@ void teclado(unsigned char key, int x, int y) {
     }
     glutPostRedisplay();
 }
-int main(int argc, char **argv){
+
+int main(int argc, char **argv) {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGBA);
     glutInitWindowPosition(20, 20);
