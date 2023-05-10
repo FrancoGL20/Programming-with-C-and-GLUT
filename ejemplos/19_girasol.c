@@ -1,5 +1,4 @@
 #include <GL/glut.h>
-// #include "../files/deadpool.h"                 //archivo .h
 #include "../files/deadpool.h"                 //archivo .h
 #define anchoTextura 32                       // ancho potencia de 2
 #define altoTextura 32                        // alto potencia de 2
@@ -69,7 +68,6 @@ void ajusta(int w, int h) {
     gluOrtho2D(-4.5, 4.5, -4.5, 4.5);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-
     glEnable(GL_TEXTURE_2D); // Habilitar uso texturas
 }
 
