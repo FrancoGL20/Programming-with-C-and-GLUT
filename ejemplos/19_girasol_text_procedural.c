@@ -3,9 +3,9 @@
 #define anchoTextura 16
 #define altoTextura 16
 GLubyte imagen[altoTextura][anchoTextura][3];
-void creaTexturas(void){
+void creaTexturas(void) {
     for (int i = 0; i < altoTextura; i++)
-        for (int j = 0; j < anchoTextura; j++)        {
+        for (int j = 0; j < anchoTextura; j++) {
             imagen[i][j][0] = (i < ALTO && j < ANCHO) ? paleta1[girasol[i][j]][0] : paleta1[0][0];
             imagen[i][j][1] = paleta1[(i < ALTO && j < ANCHO) ? girasol[i][j] : 0][1];
             imagen[i][j][2] = paleta1[(i < ALTO && j < ANCHO) ? girasol[i][j] : 0][2];
@@ -16,7 +16,7 @@ void creaTexturas(void){
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, anchoTextura, altoTextura,
                 0, GL_RGB, GL_UNSIGNED_BYTE, imagen);
 }
-void dibuja(void){
+void dibuja(void) {
     glClear(GL_COLOR_BUFFER_BIT);
     glBegin(GL_QUADS); 
         // Rectangulo superior izquierdo
@@ -61,7 +61,7 @@ void dibuja(void){
     glEnd();
     glFlush();
 }
-void ajusta(int w, int h){
+void ajusta(int w, int h) {
     glClearColor(1.0, 1.0, 1.0, 0.0);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -71,7 +71,7 @@ void ajusta(int w, int h){
     
     glEnable(GL_TEXTURE_2D);
 }
-int main(int argc, char **argv){
+int main(int argc, char **argv) {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
     glutInitWindowSize(400, 400);
