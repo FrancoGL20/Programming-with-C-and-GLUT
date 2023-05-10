@@ -15,8 +15,8 @@
 #include <stdlib.h>
 GLUquadricObj *cilindro;
 GLfloat giray = 90;
-void aspas(void)
-{
+
+void aspas(void) {
     cilindro = gluNewQuadric();
     glRotatef(giray, 0.0, 1.0, 0.0);
     glColor3f(.8, .2, 0);
@@ -54,8 +54,8 @@ void aspas(void)
         glPopMatrix();
     glPopMatrix();
 }
-void dibuja(void)
-{
+
+void dibuja(void) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glPushAttrib(GL_ALL_ATTRIB_BITS); // Guarda el estado de OpenGL para evitar que se modifique por accidente en la llamada a aspas()
         glPushMatrix();
@@ -64,10 +64,9 @@ void dibuja(void)
     glPopAttrib();
     glutSwapBuffers();
 }
-void teclado(unsigned char key, int x, int y)
-{
-    switch (key)
-    {
+
+void teclado(unsigned char key, int x, int y) {
+    switch (key) {
     case 27:
         exit(0);
     case 'y':
@@ -89,8 +88,8 @@ void teclado(unsigned char key, int x, int y)
     }
     glutPostRedisplay();
 }
-void ajusta(int ancho, int alto)
-{
+
+void ajusta(int ancho, int alto) {
     glClearColor(1.0, 1.0, 1.0, 0.0);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -100,8 +99,8 @@ void ajusta(int ancho, int alto)
     glEnable(GL_LIGHT0);
     glEnable(GL_DEPTH_TEST);
 }
-int main(int argc, char **argv)
-{
+
+int main(int argc, char **argv) {
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
     glutInitWindowPosition(100, 100);
     glutInitWindowSize(400, 400);
